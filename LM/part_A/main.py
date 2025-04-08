@@ -1,7 +1,4 @@
-# /Users/panciut/Downloads/257852_marco_panciera/LM/part_A/main.py
-
-# This file is used to run your functions and print the results
-# Please write your functions or classes in the functions.py
+# /Users/panciut/Downloads/257852_marco_panciera/LM/baseline/main.py
 
 from functions import *
 from utils import *
@@ -16,10 +13,10 @@ from tqdm import tqdm
 if __name__ == "__main__":
     DEVICE = 'cuda:0' if torch.cuda.is_available() else 'cpu'
 
-    # === Load raw data ===
-    train_raw = read_file("dataset/PennTreeBank/ptb.train.txt")
-    dev_raw = read_file("dataset/PennTreeBank/ptb.valid.txt")
-    test_raw = read_file("dataset/PennTreeBank/ptb.test.txt")
+    # Load raw data
+    train_raw = read_file("../../dataset/PennTreeBank/ptb.train.txt")
+    dev_raw = read_file("../../dataset/PennTreeBank/ptb.valid.txt")
+    test_raw = read_file("../../dataset/PennTreeBank/ptb.test.txt")
 
     lang = Lang(train_raw, ["<pad>", "<eos>"])
     vocab_len = len(lang.word2id)
@@ -32,15 +29,13 @@ if __name__ == "__main__":
     dev_loader = get_dataloader(dev_dataset, batch_size=128, pad_token=lang.word2id["<pad>"])
     test_loader = get_dataloader(test_dataset, batch_size=128, pad_token=lang.word2id["<pad>"])
 
-    # === Define model ===
-    model = LM_LSTM(emb_size=300, hidden_size=200, output_size=vocab_len, pad_index=lang.word2id["<pad>"]).to(DEVICE)
+    model = LM_RNN(emb_size=300, hidden_size=200, output_size=vocab_len, pad_index=lang.word2id["<pad>"]).to(DEVICE)
     model.apply(init_weights)
 
-    optimizer = optim.AdamW(model.parameters(), lr=0.001)
+    optimizer = optim.SGD(model.parameters(), lr=1.0)  # baseline uses SGD with high lr
     criterion_train = nn.CrossEntropyLoss(ignore_index=lang.word2id["<pad>"])
     criterion_eval = nn.CrossEntropyLoss(ignore_index=lang.word2id["<pad>"], reduction='sum')
 
-    # === Training loop ===
     best_model = None
     best_ppl = math.inf
     patience = 3

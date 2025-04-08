@@ -1,5 +1,4 @@
-# Add functions or classes used for data loading and preprocessing
-# /Users/panciut/Downloads/257852_marco_panciera/LM/part_A/utils.py
+# /Users/panciut/Downloads/257852_marco_panciera/LM/baseline/utils.py
 
 import torch
 import torch.nn as nn
@@ -8,7 +7,7 @@ from torch.utils.data import DataLoader
 from functools import partial
 import math
 
-# === Data loading and preprocessing ===
+# === File Reading ===
 
 def read_file(path, eos_token="<eos>"):
     output = []
@@ -16,6 +15,8 @@ def read_file(path, eos_token="<eos>"):
         for line in f.readlines():
             output.append(line.strip() + " " + eos_token)
     return output
+
+# === Vocabulary ===
 
 class Lang:
     def __init__(self, corpus, special_tokens=[]):
@@ -34,6 +35,8 @@ class Lang:
                     output[w] = i
                     i += 1
         return output
+
+# === Dataset ===
 
 class PennTreeBank(data.Dataset):
     def __init__(self, corpus, lang):
@@ -58,14 +61,16 @@ class PennTreeBank(data.Dataset):
     def mapping_seq(self, data, lang):
         res = []
         for seq in data:
-            tmp_seq = []
-            for x in seq:
-                if x in lang.word2id:
-                    tmp_seq.append(lang.word2id[x])
+            tmp = []
+            for token in seq:
+                if token in lang.word2id:
+                    tmp.append(lang.word2id[token])
                 else:
-                    raise ValueError(f"OOV found: {x}")
-            res.append(tmp_seq)
+                    raise ValueError(f"OOV token found: {token}")
+            res.append(tmp)
         return res
+
+# === Dataloader Helper ===
 
 def collate_fn(data, pad_token):
     def merge(sequences):
@@ -76,10 +81,11 @@ def collate_fn(data, pad_token):
             padded[i, :len(seq)] = seq
         return padded, lengths
 
-    data.sort(key=lambda x: len(x["source"]), reverse=True)
+    data.sort(key=lambda x: len(x['source']), reverse=True)
     batch = {key: [d[key] for d in data] for key in data[0]}
     source, _ = merge(batch["source"])
     target, lengths = merge(batch["target"])
+
     return {
         "source": source,
         "target": target,
@@ -90,7 +96,7 @@ def get_dataloader(dataset, batch_size, pad_token, shuffle=False):
     return DataLoader(dataset, batch_size=batch_size, shuffle=shuffle,
                       collate_fn=partial(collate_fn, pad_token=pad_token))
 
-# === Training ===
+# === Training and Evaluation ===
 
 def train_loop(data, optimizer, criterion, model, clip=5):
     model.train()
@@ -104,6 +110,7 @@ def train_loop(data, optimizer, criterion, model, clip=5):
         loss.backward()
         torch.nn.utils.clip_grad_norm_(model.parameters(), clip)
         optimizer.step()
+
         total_loss += loss.item() * sample['number_tokens']
         total_tokens += sample['number_tokens']
 
@@ -126,14 +133,14 @@ def eval_loop(data, criterion, model):
 
 def init_weights(model):
     for m in model.modules():
-        if isinstance(m, (nn.RNN, nn.LSTM, nn.GRU)):
+        if isinstance(m, (nn.RNN, nn.GRU, nn.LSTM)):
             for name, param in m.named_parameters():
                 if 'weight_ih' in name:
                     nn.init.xavier_uniform_(param.data)
                 elif 'weight_hh' in name:
                     nn.init.orthogonal_(param.data)
                 elif 'bias' in name:
-                    nn.init.constant_(param.data, 0.0)
+                    nn.init.constant_(param.data, 0)
         elif isinstance(m, nn.Linear):
             nn.init.uniform_(m.weight, -0.01, 0.01)
             if m.bias is not None:
