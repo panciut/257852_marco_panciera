@@ -1,4 +1,4 @@
-# /Users/panciut/Downloads/257852_marco_panciera/LM/baseline/utils.py
+# /LM/part_A/utils.py
 
 import torch
 import torch.nn as nn
@@ -7,16 +7,12 @@ from torch.utils.data import DataLoader
 from functools import partial
 import math
 
-# === File Reading ===
-
 def read_file(path, eos_token="<eos>"):
     output = []
     with open(path, "r") as f:
         for line in f.readlines():
             output.append(line.strip() + " " + eos_token)
     return output
-
-# === Vocabulary ===
 
 class Lang:
     def __init__(self, corpus, special_tokens=[]):
@@ -35,8 +31,6 @@ class Lang:
                     output[w] = i
                     i += 1
         return output
-
-# === Dataset ===
 
 class PennTreeBank(data.Dataset):
     def __init__(self, corpus, lang):
@@ -70,8 +64,6 @@ class PennTreeBank(data.Dataset):
             res.append(tmp)
         return res
 
-# === Dataloader Helper ===
-
 def collate_fn(data, pad_token):
     def merge(sequences):
         lengths = [len(seq) for seq in sequences]
@@ -96,8 +88,6 @@ def get_dataloader(dataset, batch_size, pad_token, shuffle=False):
     return DataLoader(dataset, batch_size=batch_size, shuffle=shuffle,
                       collate_fn=partial(collate_fn, pad_token=pad_token))
 
-# === Training and Evaluation ===
-
 def train_loop(data, optimizer, criterion, model, clip=5):
     model.train()
     total_loss = 0
@@ -105,8 +95,10 @@ def train_loop(data, optimizer, criterion, model, clip=5):
 
     for sample in data:
         optimizer.zero_grad()
-        output = model(sample['source'])
-        loss = criterion(output, sample['target'])
+        source = sample['source'].to(next(model.parameters()).device)
+        target = sample['target'].to(next(model.parameters()).device)
+        output = model(source)
+        loss = criterion(output, target)
         loss.backward()
         torch.nn.utils.clip_grad_norm_(model.parameters(), clip)
         optimizer.step()
@@ -123,8 +115,10 @@ def eval_loop(data, criterion, model):
 
     with torch.no_grad():
         for sample in data:
-            output = model(sample['source'])
-            loss = criterion(output, sample['target'])
+            source = sample['source'].to(next(model.parameters()).device)
+            target = sample['target'].to(next(model.parameters()).device)
+            output = model(source)
+            loss = criterion(output, target)
             total_loss += loss.item()
             total_tokens += sample['number_tokens']
 

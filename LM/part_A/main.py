@@ -1,4 +1,4 @@
-# /Users/panciut/Downloads/257852_marco_panciera/LM/baseline/main.py
+# /LM/part_A/main.py
 
 from functions import *
 from utils import *
@@ -13,11 +13,9 @@ from tqdm import tqdm
 if __name__ == "__main__":
     DEVICE = 'cuda:0' if torch.cuda.is_available() else 'cpu'
 
-    # Load raw data
     train_raw = read_file("dataset/PennTreeBank/ptb.train.txt")
     dev_raw = read_file("dataset/PennTreeBank/ptb.valid.txt")
     test_raw = read_file("dataset/PennTreeBank/ptb.test.txt")
-
 
     lang = Lang(train_raw, ["<pad>", "<eos>"])
     vocab_len = len(lang.word2id)
@@ -31,9 +29,10 @@ if __name__ == "__main__":
     test_loader = get_dataloader(test_dataset, batch_size=128, pad_token=lang.word2id["<pad>"])
 
     model = LM_RNN(emb_size=300, hidden_size=200, output_size=vocab_len, pad_index=lang.word2id["<pad>"]).to(DEVICE)
+    model.device = DEVICE
     model.apply(init_weights)
 
-    optimizer = optim.SGD(model.parameters(), lr=1.0)  # baseline uses SGD with high lr
+    optimizer = optim.SGD(model.parameters(), lr=0.0001)
     criterion_train = nn.CrossEntropyLoss(ignore_index=lang.word2id["<pad>"])
     criterion_eval = nn.CrossEntropyLoss(ignore_index=lang.word2id["<pad>"], reduction='sum')
 
@@ -62,7 +61,5 @@ if __name__ == "__main__":
     best_model.to(DEVICE)
     test_ppl, _ = eval_loop(test_loader, criterion_eval, best_model)
     print(f"Final test PPL: {test_ppl:.2f}")
-    # Save the best model
     torch.save(best_model.state_dict(), "../../models/baseline_rnn.pt")
     print("Model saved to: ../../models/baseline_rnn.pt")
-

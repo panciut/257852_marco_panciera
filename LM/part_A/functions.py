@@ -1,4 +1,4 @@
-# /Users/panciut/Downloads/257852_marco_panciera/LM/baseline/functions.py
+# /LM/part_A/functions.py
 
 import torch
 import torch.nn as nn
