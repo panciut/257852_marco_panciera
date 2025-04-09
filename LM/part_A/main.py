@@ -14,9 +14,10 @@ if __name__ == "__main__":
     DEVICE = 'cuda:0' if torch.cuda.is_available() else 'cpu'
 
     # Load raw data
-    train_raw = read_file("../../dataset/PennTreeBank/ptb.train.txt")
-    dev_raw = read_file("../../dataset/PennTreeBank/ptb.valid.txt")
-    test_raw = read_file("../../dataset/PennTreeBank/ptb.test.txt")
+    train_raw = read_file("dataset/PennTreeBank/ptb.train.txt")
+    dev_raw = read_file("dataset/PennTreeBank/ptb.valid.txt")
+    test_raw = read_file("dataset/PennTreeBank/ptb.test.txt")
+
 
     lang = Lang(train_raw, ["<pad>", "<eos>"])
     vocab_len = len(lang.word2id)
