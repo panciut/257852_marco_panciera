@@ -69,5 +69,5 @@ if __name__ == "__main__":
     test_ppl, _ = eval_loop(test_loader, criterion_eval, best_model)
     print(f"Final test PPL: {test_ppl:.2f}")
     # Save the best model
-    torch.save(best_model.state_dict(), "../../models/baseline_rnn.pt")
-    print("Model saved to: ../../models/baseline_rnn.pt")
+    torch.save(best_model.state_dict(), "models/baseline_rnn.pt")
+    print("Model saved to: models/baseline_rnn.pt")
