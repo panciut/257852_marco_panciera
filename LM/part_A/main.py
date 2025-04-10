@@ -1,3 +1,4 @@
+# /LM/part_A/main.py
 
 from functions import *
 from utils import *
@@ -8,6 +9,8 @@ import copy
 import numpy as np
 import math
 from tqdm import tqdm
+import os
+import logging
 
 # === Hyperparameters ===
 EMB_SIZE = 300
@@ -18,6 +21,25 @@ BATCH_SIZE_TRAIN = 64
 BATCH_SIZE_EVAL = 128
 PAD_TOKEN = "<pad>"
 DEVICE = 'cuda:0' if torch.cuda.is_available() else 'cpu'
+
+# === Setup Directories ===
+MODEL_DIR = "models"
+LOG_DIR = "logs"
+MODEL_PATH = os.path.join(MODEL_DIR, "baseline_rnn.pt")
+LOG_PATH = os.path.join(LOG_DIR, "training_output.txt")
+os.makedirs(MODEL_DIR, exist_ok=True)
+os.makedirs(LOG_DIR, exist_ok=True)
+
+# === Logger Configuration ===
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s | %(message)s',
+    handlers=[
+        logging.FileHandler(LOG_PATH, mode='w'),
+        logging.StreamHandler()
+    ]
+)
+log = logging.getLogger()
 
 if __name__ == "__main__":
     # Load raw data
@@ -39,7 +61,7 @@ if __name__ == "__main__":
     model = LM_RNN(emb_size=EMB_SIZE, hidden_size=HID_SIZE, output_size=vocab_len, pad_index=lang.word2id[PAD_TOKEN]).to(DEVICE)
     model.apply(init_weights)
 
-    optimizer = optim.SGD(model.parameters(), lr=LR)  # baseline uses SGD
+    optimizer = optim.SGD(model.parameters(), lr=LR)
     criterion_train = nn.CrossEntropyLoss(ignore_index=lang.word2id[PAD_TOKEN])
     criterion_eval = nn.CrossEntropyLoss(ignore_index=lang.word2id[PAD_TOKEN], reduction='sum')
 
@@ -52,7 +74,7 @@ if __name__ == "__main__":
         train_loss = train_loop(train_loader, optimizer, criterion_train, model, clip=CLIP)
         dev_ppl, dev_loss = eval_loop(dev_loader, criterion_eval, model)
 
-        print(f"[Epoch {epoch}] Train loss: {train_loss:.4f} | Dev ppl: {dev_ppl:.2f}")
+        log.info(f"[Epoch {epoch}] Train loss: {train_loss:.4f} | Dev ppl: {dev_ppl:.2f}")
 
         if dev_ppl < best_ppl:
             best_ppl = dev_ppl
@@ -62,12 +84,12 @@ if __name__ == "__main__":
             patience -= 1
 
         if patience <= 0:
-            print("Early stopping.")
+            log.info("Early stopping.")
             break
 
     best_model.to(DEVICE)
     test_ppl, _ = eval_loop(test_loader, criterion_eval, best_model)
-    print(f"Final test PPL: {test_ppl:.2f}")
-    # Save the best model
-    torch.save(best_model.state_dict(), "models/baseline_rnn.pt")
-    print("Model saved to: models/baseline_rnn.pt")
+    log.info(f"Final test PPL: {test_ppl:.2f}")
+
+    torch.save(best_model.state_dict(), MODEL_PATH)
+    log.info(f"Model saved to: {MODEL_PATH}")
