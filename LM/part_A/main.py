@@ -26,6 +26,13 @@ BATCH_SIZE_EVAL = 128
 PAD_TOKEN = "<pad>"
 DEVICE = 'cuda:0' if torch.cuda.is_available() else 'cpu'
 
+# === Model Configurations for Part 1.A ===
+USE_LSTM = False            # Use RNN (baseline)
+USE_EMB_DROPOUT = False     # No embedding dropout
+USE_OUT_DROPOUT = False     # No output dropout
+USE_ADAMW = False           # Use SGD (baseline)
+
+
 # === Experiment Setup ===
 EXPERIMENT_NAME = f"lstm_baseline_lr{LR}_emb{EMB_SIZE}_hid{HID_SIZE}"
 TIMESTAMP = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
