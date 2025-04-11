@@ -10,5 +10,5 @@
     "DEVICE": "cuda:0",
     "MODEL_TYPE": "LM_RNN",
     "EXPERIMENT_NAME": "exp1_lr0.01_emb300_hid200_sgd_rnn",
-    "TIMESTAMP": "20250411_151122"
+    "TIMESTAMP": "20250411_172011"
 }

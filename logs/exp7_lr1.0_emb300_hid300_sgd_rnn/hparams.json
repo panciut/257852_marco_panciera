@@ -1,0 +1,14 @@
+{
+    "EXPERIMENT_ID": 7,
+    "EMB_SIZE": 300,
+    "HID_SIZE": 300,
+    "LR": 1.0,
+    "CLIP": 5,
+    "BATCH_SIZE_TRAIN": 64,
+    "BATCH_SIZE_EVAL": 128,
+    "PAD_TOKEN": "<pad>",
+    "DEVICE": "cuda:0",
+    "MODEL_TYPE": "LM_RNN",
+    "EXPERIMENT_NAME": "exp7_lr1.0_emb300_hid300_sgd_rnn",
+    "TIMESTAMP": "20250411_175549"
+}
