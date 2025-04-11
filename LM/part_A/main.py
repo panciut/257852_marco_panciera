@@ -1,7 +1,8 @@
-# /LM/part_A/main.py
 
-from model import *
+
+from functions import *
 from utils import *
+from model import LM_RNN
 import torch
 import torch.nn as nn
 import torch.optim as optim
@@ -11,6 +12,9 @@ import math
 from tqdm import tqdm
 import os
 import logging
+import json
+import datetime
+import time
 
 # === Hyperparameters ===
 EMB_SIZE = 300
@@ -22,11 +26,16 @@ BATCH_SIZE_EVAL = 128
 PAD_TOKEN = "<pad>"
 DEVICE = 'cuda:0' if torch.cuda.is_available() else 'cpu'
 
-# === Setup Directories ===
-MODEL_DIR = "models"
-LOG_DIR = "logs"
-MODEL_PATH = os.path.join(MODEL_DIR, "baseline_rnn.pt")
-LOG_PATH = os.path.join(LOG_DIR, "training_output.txt")
+# === Experiment Setup ===
+EXPERIMENT_NAME = f"lstm_baseline_lr{LR}_emb{EMB_SIZE}_hid{HID_SIZE}"
+TIMESTAMP = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+MODEL_DIR = f"models/{EXPERIMENT_NAME}"
+LOG_DIR = f"logs/{EXPERIMENT_NAME}"
+MODEL_PATH = os.path.join(MODEL_DIR, f"model_{TIMESTAMP}.pt")
+LOG_PATH = os.path.join(LOG_DIR, f"log_{TIMESTAMP}.txt")
+METRICS_PATH = os.path.join(LOG_DIR, "metrics.csv")
+HPARAMS_PATH = os.path.join(LOG_DIR, "hparams.json")
+
 os.makedirs(MODEL_DIR, exist_ok=True)
 os.makedirs(LOG_DIR, exist_ok=True)
 
@@ -41,7 +50,26 @@ logging.basicConfig(
 )
 log = logging.getLogger()
 
+# === Save Hyperparameters ===
+hparams = {
+    "EMB_SIZE": EMB_SIZE,
+    "HID_SIZE": HID_SIZE,
+    "LR": LR,
+    "CLIP": CLIP,
+    "BATCH_SIZE_TRAIN": BATCH_SIZE_TRAIN,
+    "BATCH_SIZE_EVAL": BATCH_SIZE_EVAL,
+    "PAD_TOKEN": PAD_TOKEN,
+    "DEVICE": DEVICE,
+    "MODEL_TYPE": "LM_RNN",
+    "EXPERIMENT_NAME": EXPERIMENT_NAME,
+    "TIMESTAMP": TIMESTAMP
+}
+with open(HPARAMS_PATH, 'w') as f:
+    json.dump(hparams, f, indent=4)
+
 if __name__ == "__main__":
+    start_time = time.time()
+
     train_raw = read_file("dataset/PennTreeBank/ptb.train.txt")
     dev_raw = read_file("dataset/PennTreeBank/ptb.valid.txt")
     test_raw = read_file("dataset/PennTreeBank/ptb.test.txt")
@@ -69,11 +97,17 @@ if __name__ == "__main__":
     patience = 3
     n_epochs = 100
 
+    with open(METRICS_PATH, 'w') as metrics_file:
+        metrics_file.write("epoch,train_loss,dev_loss,dev_ppl\n")
+
     for epoch in tqdm(range(1, n_epochs + 1)):
         train_loss = train_loop(train_loader, optimizer, criterion_train, model, clip=CLIP)
         dev_ppl, dev_loss = eval_loop(dev_loader, criterion_eval, model)
 
-        log.info(f"[Epoch {epoch}] Train loss: {train_loss:.4f} | Dev ppl: {dev_ppl:.2f}")
+        log.info(f"[Epoch {epoch}] Train loss: {train_loss:.4f} | Dev loss: {dev_loss:.4f} | Dev ppl: {dev_ppl:.2f}")
+
+        with open(METRICS_PATH, 'a') as metrics_file:
+            metrics_file.write(f"{epoch},{train_loss:.4f},{dev_loss:.4f},{dev_ppl:.2f}\n")
 
         if dev_ppl < best_ppl:
             best_ppl = dev_ppl
@@ -87,8 +121,16 @@ if __name__ == "__main__":
             break
 
     best_model.to(DEVICE)
-    test_ppl, _ = eval_loop(test_loader, criterion_eval, best_model)
-    log.info(f"Final test PPL: {test_ppl:.2f}")
+    test_ppl, test_loss = eval_loop(test_loader, criterion_eval, best_model)
+
+    total_time = (time.time() - start_time) / 60
+
+    log.info("\n===== SUMMARY =====")
+    log.info(f"Best Dev PPL: {best_ppl:.2f}")
+    log.info(f"Test Loss: {test_loss:.4f} | Test PPL: {test_ppl:.2f}")
+    log.info(f"Optimizer: SGD")
+    log.info(f"Training time: {total_time:.2f} minutes")
+    log.info(f"Model saved to: {MODEL_PATH}")
+    log.info("===================\n")
 
     torch.save(best_model.state_dict(), MODEL_PATH)
-    log.info(f"Model saved to: {MODEL_PATH}")
