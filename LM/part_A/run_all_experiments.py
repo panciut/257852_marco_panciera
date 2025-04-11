@@ -4,7 +4,7 @@ import os
 import subprocess
 
 # List of experiment IDs to run
-EXPERIMENT_IDS = [2, 3]
+EXPERIMENT_IDS = [ 1, 4, 5, 6, 7, 8, 9, 10 ]
 
 # Path to main script
 MAIN_SCRIPT = "LM/part_A/main.py"
