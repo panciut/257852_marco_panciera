@@ -1,6 +1,6 @@
 # /LM/part_A/main.py
 
-from functions import *
+from model import *
 from utils import *
 import torch
 import torch.nn as nn
@@ -42,7 +42,6 @@ logging.basicConfig(
 log = logging.getLogger()
 
 if __name__ == "__main__":
-    # Load raw data
     train_raw = read_file("dataset/PennTreeBank/ptb.train.txt")
     dev_raw = read_file("dataset/PennTreeBank/ptb.valid.txt")
     test_raw = read_file("dataset/PennTreeBank/ptb.test.txt")
