@@ -1,4 +1,4 @@
-
+# /LM/part_A/main.py
 
 from functions import *
 from utils import *
@@ -16,10 +16,28 @@ import json
 import datetime
 import time
 
+# === Experiment Configurations ===
+EXPERIMENTS = {
+    1: {"LR": 0.01, "HID_SIZE": 200, "EMB_SIZE": 300},
+    2: {"LR": 0.05, "HID_SIZE": 200, "EMB_SIZE": 300},
+    3: {"LR": 0.1, "HID_SIZE": 200, "EMB_SIZE": 300},
+    4: {"LR": 0.2, "HID_SIZE": 200, "EMB_SIZE": 300},
+    5: {"LR": 0.5, "HID_SIZE": 200, "EMB_SIZE": 300},
+    6: {"LR": 1.0, "HID_SIZE": 200, "EMB_SIZE": 300},
+    7: {"LR": 1.0, "HID_SIZE": 300, "EMB_SIZE": 300},
+    8: {"LR": 1.0, "HID_SIZE": 400, "EMB_SIZE": 300},
+    9: {"LR": 1.0, "HID_SIZE": 400, "EMB_SIZE": 400},
+    10: {"LR": 2.0, "HID_SIZE": 400, "EMB_SIZE": 400},
+}
+
+# === Select Experiment ===
+EXPERIMENT_ID = 1
+conf = EXPERIMENTS[EXPERIMENT_ID]
+
 # === Hyperparameters ===
-EMB_SIZE = 300
-HID_SIZE = 200
-LR = 0.0001
+EMB_SIZE = conf["EMB_SIZE"]
+HID_SIZE = conf["HID_SIZE"]
+LR = conf["LR"]
 CLIP = 5
 BATCH_SIZE_TRAIN = 64
 BATCH_SIZE_EVAL = 128
@@ -27,20 +45,24 @@ PAD_TOKEN = "<pad>"
 DEVICE = 'cuda:0' if torch.cuda.is_available() else 'cpu'
 
 # === Model Configurations for Part 1.A ===
-USE_LSTM = False            # Use RNN (baseline)
-USE_EMB_DROPOUT = False     # No embedding dropout
-USE_OUT_DROPOUT = False     # No output dropout
-USE_ADAMW = False           # Use SGD (baseline)
-
+USE_LSTM = False
+USE_EMB_DROPOUT = False
+USE_OUT_DROPOUT = False
+USE_ADAMW = False
 
 # === Experiment Setup ===
-EXPERIMENT_NAME = f"lstm_baseline_lr{LR}_emb{EMB_SIZE}_hid{HID_SIZE}"
+EXPERIMENT_NAME = f"exp{EXPERIMENT_ID}_lr{LR}_emb{EMB_SIZE}_hid{HID_SIZE}" + \
+                  f"{'_adamw' if USE_ADAMW else '_sgd'}" + \
+                  f"{'_lstm' if USE_LSTM else '_rnn'}" + \
+                  f"{'_embdrop' if USE_EMB_DROPOUT else ''}" + \
+                  f"{'_outdrop' if USE_OUT_DROPOUT else ''}"
+
 TIMESTAMP = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
 MODEL_DIR = f"models/{EXPERIMENT_NAME}"
 LOG_DIR = f"logs/{EXPERIMENT_NAME}"
 MODEL_PATH = os.path.join(MODEL_DIR, f"model_{TIMESTAMP}.pt")
 LOG_PATH = os.path.join(LOG_DIR, f"log_{TIMESTAMP}.txt")
-METRICS_PATH = os.path.join(LOG_DIR, "metrics.csv")
+METRICS_JSON_PATH = os.path.join(LOG_DIR, "metrics.json")
 HPARAMS_PATH = os.path.join(LOG_DIR, "hparams.json")
 
 os.makedirs(MODEL_DIR, exist_ok=True)
@@ -59,6 +81,7 @@ log = logging.getLogger()
 
 # === Save Hyperparameters ===
 hparams = {
+    "EXPERIMENT_ID": EXPERIMENT_ID,
     "EMB_SIZE": EMB_SIZE,
     "HID_SIZE": HID_SIZE,
     "LR": LR,
@@ -95,7 +118,7 @@ if __name__ == "__main__":
     model = LM_RNN(emb_size=EMB_SIZE, hidden_size=HID_SIZE, output_size=vocab_len, pad_index=lang.word2id[PAD_TOKEN]).to(DEVICE)
     model.apply(init_weights)
 
-    optimizer = optim.SGD(model.parameters(), lr=LR)
+    optimizer = optim.AdamW(model.parameters(), lr=LR) if USE_ADAMW else optim.SGD(model.parameters(), lr=LR)
     criterion_train = nn.CrossEntropyLoss(ignore_index=lang.word2id[PAD_TOKEN])
     criterion_eval = nn.CrossEntropyLoss(ignore_index=lang.word2id[PAD_TOKEN], reduction='sum')
 
@@ -104,17 +127,21 @@ if __name__ == "__main__":
     patience = 3
     n_epochs = 100
 
-    with open(METRICS_PATH, 'w') as metrics_file:
-        metrics_file.write("epoch,train_loss,dev_loss,dev_ppl\n")
+    metrics_history = []
 
     for epoch in tqdm(range(1, n_epochs + 1)):
         train_loss = train_loop(train_loader, optimizer, criterion_train, model, clip=CLIP)
         dev_ppl, dev_loss = eval_loop(dev_loader, criterion_eval, model)
 
-        log.info(f"[Epoch {epoch}] Train loss: {train_loss:.4f} | Dev loss: {dev_loss:.4f} | Dev ppl: {dev_ppl:.2f}")
+        epoch_metrics = {
+            "epoch": epoch,
+            "train_loss": round(train_loss, 4),
+            "dev_loss": round(dev_loss, 4),
+            "dev_ppl": round(dev_ppl, 2)
+        }
+        metrics_history.append(epoch_metrics)
 
-        with open(METRICS_PATH, 'a') as metrics_file:
-            metrics_file.write(f"{epoch},{train_loss:.4f},{dev_loss:.4f},{dev_ppl:.2f}\n")
+        log.info(f"[Epoch {epoch}] Train loss: {train_loss:.4f} | Dev loss: {dev_loss:.4f} | Dev ppl: {dev_ppl:.2f}")
 
         if dev_ppl < best_ppl:
             best_ppl = dev_ppl
@@ -135,9 +162,13 @@ if __name__ == "__main__":
     log.info("\n===== SUMMARY =====")
     log.info(f"Best Dev PPL: {best_ppl:.2f}")
     log.info(f"Test Loss: {test_loss:.4f} | Test PPL: {test_ppl:.2f}")
-    log.info(f"Optimizer: SGD")
+    log.info(f"Optimizer: {'AdamW' if USE_ADAMW else 'SGD'}")
     log.info(f"Training time: {total_time:.2f} minutes")
     log.info(f"Model saved to: {MODEL_PATH}")
+    log.info(f"Metrics saved to: {METRICS_JSON_PATH}")
     log.info("===================\n")
+
+    with open(METRICS_JSON_PATH, 'w') as f:
+        json.dump(metrics_history, f, indent=4)
 
     torch.save(best_model.state_dict(), MODEL_PATH)
