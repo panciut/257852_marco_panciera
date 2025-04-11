@@ -32,7 +32,6 @@ EXPERIMENTS = {
     10: {"LR": 2.0, "HID_SIZE": 400, "EMB_SIZE": 400},
 }
 
-# === Parse Command-Line Argument ===
 # === Default Experiment Selection ===
 DEFAULT_EXPERIMENT_ID = 0
 
