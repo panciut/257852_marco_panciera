@@ -15,9 +15,11 @@ import logging
 import json
 import datetime
 import time
+import argparse 
 
 # === Experiment Configurations ===
 EXPERIMENTS = {
+    0: {"LR": 0.0001, "HID_SIZE": 200, "EMB_SIZE": 300},
     1: {"LR": 0.01, "HID_SIZE": 200, "EMB_SIZE": 300},
     2: {"LR": 0.05, "HID_SIZE": 200, "EMB_SIZE": 300},
     3: {"LR": 0.1, "HID_SIZE": 200, "EMB_SIZE": 300},
@@ -30,8 +32,12 @@ EXPERIMENTS = {
     10: {"LR": 2.0, "HID_SIZE": 400, "EMB_SIZE": 400},
 }
 
-# === Select Experiment ===
-EXPERIMENT_ID = 1
+# === Parse Command-Line Argument ===
+parser = argparse.ArgumentParser()
+parser.add_argument("--experiment_id", type=int, required=True, help="Experiment ID to run.")
+args = parser.parse_args()
+
+EXPERIMENT_ID = args.experiment_id
 conf = EXPERIMENTS[EXPERIMENT_ID]
 
 # === Hyperparameters ===
@@ -97,6 +103,7 @@ hparams = {
 with open(HPARAMS_PATH, 'w') as f:
     json.dump(hparams, f, indent=4)
 
+# === Training Script ===
 if __name__ == "__main__":
     start_time = time.time()
 
