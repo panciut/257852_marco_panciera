@@ -1,0 +1,110 @@
+2025-04-11 16:26:16,004 | [Epoch 1] Train loss: 7.4156 | Dev loss: 6.6279 | Dev ppl: 755.93
+2025-04-11 16:26:24,978 | [Epoch 2] Train loss: 6.5093 | Dev loss: 6.3889 | Dev ppl: 595.20
+2025-04-11 16:26:34,054 | [Epoch 3] Train loss: 6.3474 | Dev loss: 6.2714 | Dev ppl: 529.21
+2025-04-11 16:26:43,186 | [Epoch 4] Train loss: 6.2496 | Dev loss: 6.1884 | Dev ppl: 487.07
+2025-04-11 16:26:52,158 | [Epoch 5] Train loss: 6.1772 | Dev loss: 6.1259 | Dev ppl: 457.57
+2025-04-11 16:27:01,147 | [Epoch 6] Train loss: 6.1193 | Dev loss: 6.0747 | Dev ppl: 434.72
+2025-04-11 16:27:10,152 | [Epoch 7] Train loss: 6.0706 | Dev loss: 6.0311 | Dev ppl: 416.19
+2025-04-11 16:27:19,262 | [Epoch 8] Train loss: 6.0285 | Dev loss: 5.9938 | Dev ppl: 400.92
+2025-04-11 16:27:28,272 | [Epoch 9] Train loss: 5.9914 | Dev loss: 5.9601 | Dev ppl: 387.66
+2025-04-11 16:27:37,311 | [Epoch 10] Train loss: 5.9579 | Dev loss: 5.9295 | Dev ppl: 375.98
+2025-04-11 16:27:46,367 | [Epoch 11] Train loss: 5.9273 | Dev loss: 5.9013 | Dev ppl: 365.52
+2025-04-11 16:27:55,381 | [Epoch 12] Train loss: 5.8992 | Dev loss: 5.8766 | Dev ppl: 356.58
+2025-04-11 16:28:04,388 | [Epoch 13] Train loss: 5.8728 | Dev loss: 5.8539 | Dev ppl: 348.59
+2025-04-11 16:28:13,403 | [Epoch 14] Train loss: 5.8482 | Dev loss: 5.8317 | Dev ppl: 340.93
+2025-04-11 16:28:22,354 | [Epoch 15] Train loss: 5.8249 | Dev loss: 5.8116 | Dev ppl: 334.14
+2025-04-11 16:28:31,422 | [Epoch 16] Train loss: 5.8029 | Dev loss: 5.7921 | Dev ppl: 327.69
+2025-04-11 16:28:40,401 | [Epoch 17] Train loss: 5.7820 | Dev loss: 5.7750 | Dev ppl: 322.14
+2025-04-11 16:28:49,401 | [Epoch 18] Train loss: 5.7620 | Dev loss: 5.7579 | Dev ppl: 316.68
+2025-04-11 16:28:58,368 | [Epoch 19] Train loss: 5.7429 | Dev loss: 5.7407 | Dev ppl: 311.29
+2025-04-11 16:29:07,314 | [Epoch 20] Train loss: 5.7246 | Dev loss: 5.7260 | Dev ppl: 306.73
+2025-04-11 16:29:16,241 | [Epoch 21] Train loss: 5.7072 | Dev loss: 5.7105 | Dev ppl: 302.03
+2025-04-11 16:29:25,247 | [Epoch 22] Train loss: 5.6903 | Dev loss: 5.6969 | Dev ppl: 297.94
+2025-04-11 16:29:34,243 | [Epoch 23] Train loss: 5.6741 | Dev loss: 5.6880 | Dev ppl: 295.31
+2025-04-11 16:29:43,186 | [Epoch 24] Train loss: 5.6584 | Dev loss: 5.6702 | Dev ppl: 290.10
+2025-04-11 16:29:52,146 | [Epoch 25] Train loss: 5.6433 | Dev loss: 5.6620 | Dev ppl: 287.72
+2025-04-11 16:30:01,135 | [Epoch 26] Train loss: 5.6287 | Dev loss: 5.6529 | Dev ppl: 285.10
+2025-04-11 16:30:10,086 | [Epoch 27] Train loss: 5.6146 | Dev loss: 5.6364 | Dev ppl: 280.45
+2025-04-11 16:30:19,036 | [Epoch 28] Train loss: 5.6011 | Dev loss: 5.6253 | Dev ppl: 277.36
+2025-04-11 16:30:28,048 | [Epoch 29] Train loss: 5.5880 | Dev loss: 5.6140 | Dev ppl: 274.23
+2025-04-11 16:30:37,034 | [Epoch 30] Train loss: 5.5752 | Dev loss: 5.6046 | Dev ppl: 271.67
+2025-04-11 16:30:46,040 | [Epoch 31] Train loss: 5.5628 | Dev loss: 5.5953 | Dev ppl: 269.15
+2025-04-11 16:30:55,062 | [Epoch 32] Train loss: 5.5510 | Dev loss: 5.5876 | Dev ppl: 267.08
+2025-04-11 16:31:04,017 | [Epoch 33] Train loss: 5.5394 | Dev loss: 5.5762 | Dev ppl: 264.08
+2025-04-11 16:31:12,966 | [Epoch 34] Train loss: 5.5281 | Dev loss: 5.5673 | Dev ppl: 261.73
+2025-04-11 16:31:21,935 | [Epoch 35] Train loss: 5.5172 | Dev loss: 5.5596 | Dev ppl: 259.72
+2025-04-11 16:31:30,880 | [Epoch 36] Train loss: 5.5065 | Dev loss: 5.5526 | Dev ppl: 257.92
+2025-04-11 16:31:39,876 | [Epoch 37] Train loss: 5.4961 | Dev loss: 5.5448 | Dev ppl: 255.90
+2025-04-11 16:31:48,856 | [Epoch 38] Train loss: 5.4860 | Dev loss: 5.5376 | Dev ppl: 254.06
+2025-04-11 16:31:57,729 | [Epoch 39] Train loss: 5.4761 | Dev loss: 5.5310 | Dev ppl: 252.40
+2025-04-11 16:32:06,734 | [Epoch 40] Train loss: 5.4666 | Dev loss: 5.5223 | Dev ppl: 250.21
+2025-04-11 16:32:15,695 | [Epoch 41] Train loss: 5.4573 | Dev loss: 5.5147 | Dev ppl: 248.31
+2025-04-11 16:32:24,592 | [Epoch 42] Train loss: 5.4480 | Dev loss: 5.5094 | Dev ppl: 247.00
+2025-04-11 16:32:33,587 | [Epoch 43] Train loss: 5.4391 | Dev loss: 5.5012 | Dev ppl: 244.98
+2025-04-11 16:32:42,605 | [Epoch 44] Train loss: 5.4302 | Dev loss: 5.4954 | Dev ppl: 243.57
+2025-04-11 16:32:51,590 | [Epoch 45] Train loss: 5.4216 | Dev loss: 5.4896 | Dev ppl: 242.15
+2025-04-11 16:33:00,562 | [Epoch 46] Train loss: 5.4132 | Dev loss: 5.4829 | Dev ppl: 240.55
+2025-04-11 16:33:09,521 | [Epoch 47] Train loss: 5.4049 | Dev loss: 5.4845 | Dev ppl: 240.93
+2025-04-11 16:33:18,518 | [Epoch 48] Train loss: 5.3970 | Dev loss: 5.4710 | Dev ppl: 237.70
+2025-04-11 16:33:27,507 | [Epoch 49] Train loss: 5.3890 | Dev loss: 5.4711 | Dev ppl: 237.73
+2025-04-11 16:33:36,436 | [Epoch 50] Train loss: 5.3811 | Dev loss: 5.4633 | Dev ppl: 235.87
+2025-04-11 16:33:45,472 | [Epoch 51] Train loss: 5.3735 | Dev loss: 5.4565 | Dev ppl: 234.27
+2025-04-11 16:33:54,469 | [Epoch 52] Train loss: 5.3660 | Dev loss: 5.4508 | Dev ppl: 232.95
+2025-04-11 16:34:03,453 | [Epoch 53] Train loss: 5.3587 | Dev loss: 5.4488 | Dev ppl: 232.47
+2025-04-11 16:34:12,439 | [Epoch 54] Train loss: 5.3512 | Dev loss: 5.4407 | Dev ppl: 230.61
+2025-04-11 16:34:21,656 | [Epoch 55] Train loss: 5.3441 | Dev loss: 5.4345 | Dev ppl: 229.17
+2025-04-11 16:34:30,719 | [Epoch 56] Train loss: 5.3371 | Dev loss: 5.4307 | Dev ppl: 228.30
+2025-04-11 16:34:39,820 | [Epoch 57] Train loss: 5.3301 | Dev loss: 5.4305 | Dev ppl: 228.27
+2025-04-11 16:34:48,965 | [Epoch 58] Train loss: 5.3234 | Dev loss: 5.4207 | Dev ppl: 226.04
+2025-04-11 16:34:58,125 | [Epoch 59] Train loss: 5.3166 | Dev loss: 5.4179 | Dev ppl: 225.41
+2025-04-11 16:35:07,044 | [Epoch 60] Train loss: 5.3099 | Dev loss: 5.4105 | Dev ppl: 223.75
+2025-04-11 16:35:16,198 | [Epoch 61] Train loss: 5.3034 | Dev loss: 5.4163 | Dev ppl: 225.05
+2025-04-11 16:35:25,207 | [Epoch 62] Train loss: 5.2969 | Dev loss: 5.4069 | Dev ppl: 222.95
+2025-04-11 16:35:34,463 | [Epoch 63] Train loss: 5.2906 | Dev loss: 5.4005 | Dev ppl: 221.53
+2025-04-11 16:35:43,672 | [Epoch 64] Train loss: 5.2845 | Dev loss: 5.4059 | Dev ppl: 222.72
+2025-04-11 16:35:52,686 | [Epoch 65] Train loss: 5.2783 | Dev loss: 5.3924 | Dev ppl: 219.72
+2025-04-11 16:36:01,635 | [Epoch 66] Train loss: 5.2721 | Dev loss: 5.3869 | Dev ppl: 218.52
+2025-04-11 16:36:10,556 | [Epoch 67] Train loss: 5.2660 | Dev loss: 5.3910 | Dev ppl: 219.43
+2025-04-11 16:36:19,516 | [Epoch 68] Train loss: 5.2600 | Dev loss: 5.3808 | Dev ppl: 217.19
+2025-04-11 16:36:28,409 | [Epoch 69] Train loss: 5.2544 | Dev loss: 5.3784 | Dev ppl: 216.68
+2025-04-11 16:36:37,352 | [Epoch 70] Train loss: 5.2485 | Dev loss: 5.3740 | Dev ppl: 215.73
+2025-04-11 16:36:46,231 | [Epoch 71] Train loss: 5.2427 | Dev loss: 5.3698 | Dev ppl: 214.81
+2025-04-11 16:36:55,106 | [Epoch 72] Train loss: 5.2371 | Dev loss: 5.3736 | Dev ppl: 215.64
+2025-04-11 16:37:04,004 | [Epoch 73] Train loss: 5.2317 | Dev loss: 5.3621 | Dev ppl: 213.17
+2025-04-11 16:37:12,888 | [Epoch 74] Train loss: 5.2261 | Dev loss: 5.3582 | Dev ppl: 212.35
+2025-04-11 16:37:21,753 | [Epoch 75] Train loss: 5.2206 | Dev loss: 5.3566 | Dev ppl: 212.00
+2025-04-11 16:37:30,695 | [Epoch 76] Train loss: 5.2153 | Dev loss: 5.3651 | Dev ppl: 213.80
+2025-04-11 16:37:39,592 | [Epoch 77] Train loss: 5.2101 | Dev loss: 5.3594 | Dev ppl: 212.60
+2025-04-11 16:37:48,474 | [Epoch 78] Train loss: 5.2049 | Dev loss: 5.3453 | Dev ppl: 209.63
+2025-04-11 16:37:57,340 | [Epoch 79] Train loss: 5.1996 | Dev loss: 5.3453 | Dev ppl: 209.63
+2025-04-11 16:38:06,192 | [Epoch 80] Train loss: 5.1945 | Dev loss: 5.3401 | Dev ppl: 208.53
+2025-04-11 16:38:15,050 | [Epoch 81] Train loss: 5.1895 | Dev loss: 5.3376 | Dev ppl: 208.00
+2025-04-11 16:38:23,906 | [Epoch 82] Train loss: 5.1846 | Dev loss: 5.3327 | Dev ppl: 207.00
+2025-04-11 16:38:32,750 | [Epoch 83] Train loss: 5.1794 | Dev loss: 5.3327 | Dev ppl: 207.00
+2025-04-11 16:38:41,640 | [Epoch 84] Train loss: 5.1746 | Dev loss: 5.3280 | Dev ppl: 206.02
+2025-04-11 16:38:50,504 | [Epoch 85] Train loss: 5.1698 | Dev loss: 5.3269 | Dev ppl: 205.79
+2025-04-11 16:38:59,418 | [Epoch 86] Train loss: 5.1650 | Dev loss: 5.3223 | Dev ppl: 204.85
+2025-04-11 16:39:08,304 | [Epoch 87] Train loss: 5.1603 | Dev loss: 5.3224 | Dev ppl: 204.88
+2025-04-11 16:39:17,199 | [Epoch 88] Train loss: 5.1556 | Dev loss: 5.3180 | Dev ppl: 203.97
+2025-04-11 16:39:26,278 | [Epoch 89] Train loss: 5.1510 | Dev loss: 5.3153 | Dev ppl: 203.43
+2025-04-11 16:39:35,266 | [Epoch 90] Train loss: 5.1463 | Dev loss: 5.3135 | Dev ppl: 203.05
+2025-04-11 16:39:44,248 | [Epoch 91] Train loss: 5.1419 | Dev loss: 5.3124 | Dev ppl: 202.84
+2025-04-11 16:39:53,155 | [Epoch 92] Train loss: 5.1375 | Dev loss: 5.3069 | Dev ppl: 201.73
+2025-04-11 16:40:02,181 | [Epoch 93] Train loss: 5.1329 | Dev loss: 5.3062 | Dev ppl: 201.58
+2025-04-11 16:40:11,342 | [Epoch 94] Train loss: 5.1285 | Dev loss: 5.3030 | Dev ppl: 200.94
+2025-04-11 16:40:20,344 | [Epoch 95] Train loss: 5.1241 | Dev loss: 5.2997 | Dev ppl: 200.28
+2025-04-11 16:40:29,388 | [Epoch 96] Train loss: 5.1197 | Dev loss: 5.2971 | Dev ppl: 199.76
+2025-04-11 16:40:38,345 | [Epoch 97] Train loss: 5.1156 | Dev loss: 5.3006 | Dev ppl: 200.45
+2025-04-11 16:40:47,309 | [Epoch 98] Train loss: 5.1113 | Dev loss: 5.2923 | Dev ppl: 198.79
+2025-04-11 16:40:56,239 | [Epoch 99] Train loss: 5.1070 | Dev loss: 5.2999 | Dev ppl: 200.32
+2025-04-11 16:41:05,220 | [Epoch 100] Train loss: 5.1030 | Dev loss: 5.2904 | Dev ppl: 198.42
+2025-04-11 16:41:05,650 | 
+===== SUMMARY =====
+2025-04-11 16:41:05,651 | Best Dev PPL: 198.42
+2025-04-11 16:41:05,651 | Test Loss: 5.2501 | Test PPL: 190.59
+2025-04-11 16:41:05,651 | Optimizer: SGD
+2025-04-11 16:41:05,651 | Training time: 15.02 minutes
+2025-04-11 16:41:05,651 | Model saved to: models/exp2_lr0.05_emb300_hid200_sgd_rnn/model_20250411_162604.pt
+2025-04-11 16:41:05,651 | Metrics saved to: logs/exp2_lr0.05_emb300_hid200_sgd_rnn/metrics.json
+2025-04-11 16:41:05,651 | ===================
+
