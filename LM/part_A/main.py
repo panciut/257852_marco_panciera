@@ -33,11 +33,15 @@ EXPERIMENTS = {
 }
 
 # === Parse Command-Line Argument ===
-parser = argparse.ArgumentParser()
-parser.add_argument("--experiment_id", type=int, required=True, help="Experiment ID to run.")
-args = parser.parse_args()
+# === Default Experiment Selection ===
+DEFAULT_EXPERIMENT_ID = 0
 
-EXPERIMENT_ID = args.experiment_id
+# === Parse command-line arguments ===
+parser = argparse.ArgumentParser()
+parser.add_argument("--experiment_id", type=int, help="Experiment ID to run.")
+args = parser.parse_args()
+EXPERIMENT_ID = args.experiment_id if args.experiment_id is not None else DEFAULT_EXPERIMENT_ID
+
 conf = EXPERIMENTS[EXPERIMENT_ID]
 
 # === Hyperparameters ===
