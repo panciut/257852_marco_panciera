@@ -34,7 +34,7 @@ EXPERIMENTS = {
 }
 
 # === Default Experiment Selection ===
-DEFAULT_EXPERIMENT_ID = 11
+DEFAULT_EXPERIMENT_ID = 0
 
 # === Parse command-line arguments ===
 parser = argparse.ArgumentParser()
