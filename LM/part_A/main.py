@@ -58,7 +58,7 @@ DEVICE = 'cuda:0' if torch.cuda.is_available() else 'cpu'
 USE_LSTM = True
 USE_EMB_DROPOUT = True
 USE_OUT_DROPOUT = True
-USE_ADAMW = False
+USE_ADAMW = True
 EMB_DROPOUT_PROB = 0.2
 OUT_DROPOUT_PROB = 0.2
 
