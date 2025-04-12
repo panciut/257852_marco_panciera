@@ -34,7 +34,7 @@ EXPERIMENTS = {
 }
 
 # === Default Experiment Selection ===
-DEFAULT_EXPERIMENT_ID = 0
+DEFAULT_EXPERIMENT_ID = 11
 
 # === Parse command-line arguments ===
 parser = argparse.ArgumentParser()
@@ -55,7 +55,7 @@ PAD_TOKEN = "<pad>"
 DEVICE = 'cuda:0' if torch.cuda.is_available() else 'cpu'
 
 # === Model Configurations for Part 1.A ===
-USE_LSTM = False
+USE_LSTM = True
 USE_EMB_DROPOUT = False
 USE_OUT_DROPOUT = False
 USE_ADAMW = False
