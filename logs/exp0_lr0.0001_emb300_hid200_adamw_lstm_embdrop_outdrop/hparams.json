@@ -1,0 +1,14 @@
+{
+    "EXPERIMENT_ID": 0,
+    "EMB_SIZE": 300,
+    "HID_SIZE": 200,
+    "LR": 0.0001,
+    "CLIP": 5,
+    "BATCH_SIZE_TRAIN": 64,
+    "BATCH_SIZE_EVAL": 128,
+    "PAD_TOKEN": "<pad>",
+    "DEVICE": "cuda:0",
+    "MODEL_TYPE": "LM_RNN",
+    "EXPERIMENT_NAME": "exp0_lr0.0001_emb300_hid200_adamw_lstm_embdrop_outdrop",
+    "TIMESTAMP": "20250412_145442"
+}

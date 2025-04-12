@@ -1,0 +1,19 @@
+2025-04-12 14:51:42,168 | [Epoch 1] Train loss: 74.4186 | Dev loss: 55.7122 | Dev ppl: 1568545964329365550399488.00
+2025-04-12 14:51:56,898 | [Epoch 2] Train loss: 57.6639 | Dev loss: 46.0043 | Dev ppl: 95366414387464536064.00
+2025-04-12 14:52:11,632 | [Epoch 3] Train loss: 41.1566 | Dev loss: 16.5880 | Dev ppl: 15999210.28
+2025-04-12 14:52:26,313 | [Epoch 4] Train loss: 10.7145 | Dev loss: 12.2835 | Dev ppl: 216104.30
+2025-04-12 14:52:41,162 | [Epoch 5] Train loss: 11.9032 | Dev loss: 8.1681 | Dev ppl: 3526.52
+2025-04-12 14:52:56,030 | [Epoch 6] Train loss: 15.3821 | Dev loss: 27.9660 | Dev ppl: 1397861727714.94
+2025-04-12 14:53:10,882 | [Epoch 7] Train loss: 97.7645 | Dev loss: 89.3697 | Dev ppl: 649802564562814848221258931908022108160.00
+2025-04-12 14:53:25,644 | [Epoch 8] Train loss: 83.5386 | Dev loss: 63.2506 | Dev ppl: 2947039663548998869634252800.00
+2025-04-12 14:53:25,644 | Early stopping.
+2025-04-12 14:53:26,200 | 
+===== SUMMARY =====
+2025-04-12 14:53:26,200 | Best Dev PPL: 3526.52
+2025-04-12 14:53:26,201 | Test Loss: 7.7468 | Test PPL: 2314.10
+2025-04-12 14:53:26,201 | Optimizer: AdamW
+2025-04-12 14:53:26,201 | Training time: 2.02 minutes
+2025-04-12 14:53:26,201 | Model saved to: models/exp11_lr0.5_emb400_hid400_adamw_lstm_embdrop_outdrop/model_20250412_145125.pt
+2025-04-12 14:53:26,201 | Metrics saved to: logs/exp11_lr0.5_emb400_hid400_adamw_lstm_embdrop_outdrop/metrics.json
+2025-04-12 14:53:26,201 | ===================
+
