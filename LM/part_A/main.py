@@ -30,6 +30,7 @@ EXPERIMENTS = {
     8: {"LR": 1.0, "HID_SIZE": 400, "EMB_SIZE": 300},
     9: {"LR": 1.0, "HID_SIZE": 400, "EMB_SIZE": 400},
     10: {"LR": 2.0, "HID_SIZE": 400, "EMB_SIZE": 400},
+    11: {"LR": 0.5 , "HID_SIZE": 400, "EMB_SIZE": 500},
 }
 
 # === Default Experiment Selection ===
@@ -58,6 +59,8 @@ USE_LSTM = False
 USE_EMB_DROPOUT = False
 USE_OUT_DROPOUT = False
 USE_ADAMW = False
+EMB_DROPOUT_PROB = 0.2
+OUT_DROPOUT_PROB = 0.2
 
 # === Experiment Setup ===
 EXPERIMENT_NAME = f"exp{EXPERIMENT_ID}_lr{LR}_emb{EMB_SIZE}_hid{HID_SIZE}" + \
@@ -125,7 +128,15 @@ if __name__ == "__main__":
     dev_loader = get_dataloader(dev_dataset, batch_size=BATCH_SIZE_EVAL, pad_token=lang.word2id[PAD_TOKEN])
     test_loader = get_dataloader(test_dataset, batch_size=BATCH_SIZE_EVAL, pad_token=lang.word2id[PAD_TOKEN])
 
-    model = LM_RNN(emb_size=EMB_SIZE, hidden_size=HID_SIZE, output_size=vocab_len, pad_index=lang.word2id[PAD_TOKEN]).to(DEVICE)
+    model = LM_RNN(
+        emb_size=EMB_SIZE,
+        hidden_size=HID_SIZE,
+        output_size=vocab_len,
+        pad_index=lang.word2id[PAD_TOKEN],
+        use_lstm=USE_LSTM,
+        emb_dropout=EMB_DROPOUT_PROB if USE_EMB_DROPOUT else 0.0,
+        out_dropout=OUT_DROPOUT_PROB if USE_OUT_DROPOUT else 0.0
+    ).to(DEVICE)
     model.apply(init_weights)
 
     optimizer = optim.AdamW(model.parameters(), lr=LR) if USE_ADAMW else optim.SGD(model.parameters(), lr=LR)
