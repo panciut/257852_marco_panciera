@@ -30,7 +30,7 @@ EXPERIMENTS = {
     8: {"LR": 1.0, "HID_SIZE": 400, "EMB_SIZE": 300},
     9: {"LR": 1.0, "HID_SIZE": 400, "EMB_SIZE": 400},
     10: {"LR": 2.0, "HID_SIZE": 400, "EMB_SIZE": 400},
-    11: {"LR": 0.5 , "HID_SIZE": 400, "EMB_SIZE": 500},
+    11: {"LR": 0.5 , "HID_SIZE": 400, "EMB_SIZE": 400},
 }
 
 # === Default Experiment Selection ===
