@@ -56,8 +56,8 @@ DEVICE = 'cuda:0' if torch.cuda.is_available() else 'cpu'
 
 # === Model Configurations for Part 1.A ===
 USE_LSTM = True
-USE_EMB_DROPOUT = False
-USE_OUT_DROPOUT = False
+USE_EMB_DROPOUT = True
+USE_OUT_DROPOUT = True
 USE_ADAMW = False
 EMB_DROPOUT_PROB = 0.2
 OUT_DROPOUT_PROB = 0.2
