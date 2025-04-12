@@ -1,0 +1,128 @@
+[
+    {
+        "epoch": 1,
+        "train_loss": 6.1873,
+        "dev_loss": 5.7949,
+        "dev_ppl": 328.63
+    },
+    {
+        "epoch": 2,
+        "train_loss": 5.6203,
+        "dev_loss": 5.5286,
+        "dev_ppl": 251.79
+    },
+    {
+        "epoch": 3,
+        "train_loss": 5.3986,
+        "dev_loss": 5.4394,
+        "dev_ppl": 230.31
+    },
+    {
+        "epoch": 4,
+        "train_loss": 5.2453,
+        "dev_loss": 5.3249,
+        "dev_ppl": 205.38
+    },
+    {
+        "epoch": 5,
+        "train_loss": 5.1249,
+        "dev_loss": 5.2719,
+        "dev_ppl": 194.79
+    },
+    {
+        "epoch": 6,
+        "train_loss": 5.027,
+        "dev_loss": 5.2302,
+        "dev_ppl": 186.83
+    },
+    {
+        "epoch": 7,
+        "train_loss": 4.9428,
+        "dev_loss": 5.1784,
+        "dev_ppl": 177.4
+    },
+    {
+        "epoch": 8,
+        "train_loss": 4.8684,
+        "dev_loss": 5.1645,
+        "dev_ppl": 174.95
+    },
+    {
+        "epoch": 9,
+        "train_loss": 4.8011,
+        "dev_loss": 5.1347,
+        "dev_ppl": 169.82
+    },
+    {
+        "epoch": 10,
+        "train_loss": 4.7403,
+        "dev_loss": 5.1092,
+        "dev_ppl": 165.54
+    },
+    {
+        "epoch": 11,
+        "train_loss": 4.6846,
+        "dev_loss": 5.1198,
+        "dev_ppl": 167.29
+    },
+    {
+        "epoch": 12,
+        "train_loss": 4.6329,
+        "dev_loss": 5.1003,
+        "dev_ppl": 164.07
+    },
+    {
+        "epoch": 13,
+        "train_loss": 4.5843,
+        "dev_loss": 5.0959,
+        "dev_ppl": 163.34
+    },
+    {
+        "epoch": 14,
+        "train_loss": 4.5412,
+        "dev_loss": 5.0862,
+        "dev_ppl": 161.78
+    },
+    {
+        "epoch": 15,
+        "train_loss": 4.4983,
+        "dev_loss": 5.0914,
+        "dev_ppl": 162.62
+    },
+    {
+        "epoch": 16,
+        "train_loss": 4.4585,
+        "dev_loss": 5.0805,
+        "dev_ppl": 160.86
+    },
+    {
+        "epoch": 17,
+        "train_loss": 4.4195,
+        "dev_loss": 5.0918,
+        "dev_ppl": 162.68
+    },
+    {
+        "epoch": 18,
+        "train_loss": 4.3837,
+        "dev_loss": 5.0717,
+        "dev_ppl": 159.45
+    },
+    {
+        "epoch": 19,
+        "train_loss": 4.3495,
+        "dev_loss": 5.0813,
+        "dev_ppl": 160.98
+    },
+    {
+        "epoch": 20,
+        "train_loss": 4.3166,
+        "dev_loss": 5.1159,
+        "dev_ppl": 166.66
+    },
+    {
+        "epoch": 21,
+        "train_loss": 4.2843,
+        "dev_loss": 5.1189,
+        "dev_ppl": 167.16
+    }
+]

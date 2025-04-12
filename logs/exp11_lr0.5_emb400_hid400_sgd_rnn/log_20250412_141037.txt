@@ -1,0 +1,32 @@
+2025-04-12 14:10:52,552 | [Epoch 1] Train loss: 6.1873 | Dev loss: 5.7949 | Dev ppl: 328.63
+2025-04-12 14:11:05,209 | [Epoch 2] Train loss: 5.6203 | Dev loss: 5.5286 | Dev ppl: 251.79
+2025-04-12 14:11:17,815 | [Epoch 3] Train loss: 5.3986 | Dev loss: 5.4394 | Dev ppl: 230.31
+2025-04-12 14:11:30,466 | [Epoch 4] Train loss: 5.2453 | Dev loss: 5.3249 | Dev ppl: 205.38
+2025-04-12 14:11:43,074 | [Epoch 5] Train loss: 5.1249 | Dev loss: 5.2719 | Dev ppl: 194.79
+2025-04-12 14:11:55,708 | [Epoch 6] Train loss: 5.0270 | Dev loss: 5.2302 | Dev ppl: 186.83
+2025-04-12 14:12:08,257 | [Epoch 7] Train loss: 4.9428 | Dev loss: 5.1784 | Dev ppl: 177.40
+2025-04-12 14:12:20,944 | [Epoch 8] Train loss: 4.8684 | Dev loss: 5.1645 | Dev ppl: 174.95
+2025-04-12 14:12:33,583 | [Epoch 9] Train loss: 4.8011 | Dev loss: 5.1347 | Dev ppl: 169.82
+2025-04-12 14:12:46,161 | [Epoch 10] Train loss: 4.7403 | Dev loss: 5.1092 | Dev ppl: 165.54
+2025-04-12 14:12:58,748 | [Epoch 11] Train loss: 4.6846 | Dev loss: 5.1198 | Dev ppl: 167.29
+2025-04-12 14:13:11,270 | [Epoch 12] Train loss: 4.6329 | Dev loss: 5.1003 | Dev ppl: 164.07
+2025-04-12 14:13:23,821 | [Epoch 13] Train loss: 4.5843 | Dev loss: 5.0959 | Dev ppl: 163.34
+2025-04-12 14:13:36,499 | [Epoch 14] Train loss: 4.5412 | Dev loss: 5.0862 | Dev ppl: 161.78
+2025-04-12 14:13:49,083 | [Epoch 15] Train loss: 4.4983 | Dev loss: 5.0914 | Dev ppl: 162.62
+2025-04-12 14:14:01,697 | [Epoch 16] Train loss: 4.4585 | Dev loss: 5.0805 | Dev ppl: 160.86
+2025-04-12 14:14:14,221 | [Epoch 17] Train loss: 4.4195 | Dev loss: 5.0918 | Dev ppl: 162.68
+2025-04-12 14:14:26,775 | [Epoch 18] Train loss: 4.3837 | Dev loss: 5.0717 | Dev ppl: 159.45
+2025-04-12 14:14:39,342 | [Epoch 19] Train loss: 4.3495 | Dev loss: 5.0813 | Dev ppl: 160.98
+2025-04-12 14:14:51,974 | [Epoch 20] Train loss: 4.3166 | Dev loss: 5.1159 | Dev ppl: 166.66
+2025-04-12 14:15:04,543 | [Epoch 21] Train loss: 4.2843 | Dev loss: 5.1189 | Dev ppl: 167.16
+2025-04-12 14:15:04,544 | Early stopping.
+2025-04-12 14:15:05,069 | 
+===== SUMMARY =====
+2025-04-12 14:15:05,069 | Best Dev PPL: 159.45
+2025-04-12 14:15:05,069 | Test Loss: 5.0385 | Test PPL: 154.24
+2025-04-12 14:15:05,069 | Optimizer: SGD
+2025-04-12 14:15:05,069 | Training time: 4.46 minutes
+2025-04-12 14:15:05,069 | Model saved to: models/exp11_lr0.5_emb400_hid400_sgd_rnn/model_20250412_141037.pt
+2025-04-12 14:15:05,069 | Metrics saved to: logs/exp11_lr0.5_emb400_hid400_sgd_rnn/metrics.json
+2025-04-12 14:15:05,069 | ===================
+

@@ -1,0 +1,2 @@
+2025-04-12 14:09:58,679 | [Epoch 1] Train loss: 6.1708 | Dev loss: 5.7489 | Dev ppl: 313.86
+2025-04-12 14:10:11,303 | [Epoch 2] Train loss: 5.5834 | Dev loss: 5.5953 | Dev ppl: 269.16
