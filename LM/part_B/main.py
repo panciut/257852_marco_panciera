@@ -7,6 +7,10 @@ import torch.nn as nn
 import torch.optim as optim
 import copy
 import math
+import os
+import json
+import datetime
+import time
 
 # === Configurable Flags ===
 USE_WEIGHT_TYING = False
@@ -24,6 +28,34 @@ PATIENCE = 3
 DROPOUT = 0
 PAD_TOKEN = "<pad>"
 DEVICE = 'cuda:0' if torch.cuda.is_available() else 'cpu'
+
+# === Timestamped experiment naming ===
+TIMESTAMP = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+EXPERIMENT_NAME = f"part1B_drop{DROPOUT}_lr{LR}_wt{USE_WEIGHT_TYING}_vd{USE_VARIATIONAL_DROPOUT}_ntasgd{USE_NTASGD}"
+MODEL_DIR = f"models/{EXPERIMENT_NAME}"
+LOG_DIR = f"logs/{EXPERIMENT_NAME}"
+
+os.makedirs(MODEL_DIR, exist_ok=True)
+os.makedirs(LOG_DIR, exist_ok=True)
+
+MODEL_PATH = os.path.join(MODEL_DIR, f"model_{TIMESTAMP}.pt")
+METRICS_JSON_PATH = os.path.join(LOG_DIR, f"metrics_{TIMESTAMP}.json")
+HPARAMS_PATH = os.path.join(LOG_DIR, f"hparams_{TIMESTAMP}.json")
+
+# === Save config ===
+hparams = {
+    "EMB_SIZE": EMB_SIZE,
+    "HID_SIZE": HID_SIZE,
+    "DROPOUT": DROPOUT,
+    "LR": LR,
+    "USE_WEIGHT_TYING": USE_WEIGHT_TYING,
+    "USE_VARIATIONAL_DROPOUT": USE_VARIATIONAL_DROPOUT,
+    "USE_NTASGD": USE_NTASGD,
+    "BATCH_SIZE": BATCH_SIZE,
+    "DEVICE": DEVICE,
+}
+with open(HPARAMS_PATH, 'w') as f:
+    json.dump(hparams, f, indent=4)
 
 # === Load Data ===
 train_raw = read_file("dataset/PennTreeBank/ptb.train.txt")
@@ -52,29 +84,36 @@ model = LM_LSTM_1B(
 ).to(DEVICE)
 model.apply(init_weights)
 
-# === Optimizer: SGD → NTASGD switch
+# === Optimizer: SGD → NTASGD
 optimizer = optim.SGD(model.parameters(), lr=LR)
-use_avg = False
 triggered = False
-avg_trigger_epoch = None
-avg_params = None
-t_trigger = 3  # Trigger after this many non-improving epochs
+nonmono_count = 0
+t_trigger = 3
 
-# === Loss
+# === Losses
 criterion_train = nn.CrossEntropyLoss(ignore_index=lang.word2id[PAD_TOKEN])
 criterion_eval = nn.CrossEntropyLoss(ignore_index=lang.word2id[PAD_TOKEN], reduction='sum')
 
 # === Training
+best_model = None
 best_ppl = math.inf
 patience = PATIENCE
-nonmono_count = 0
-best_model = None
+metrics_history = []
+
+start_time = time.time()
 
 for epoch in range(1, N_EPOCHS + 1):
     train_loss = train_loop(train_loader, optimizer, criterion_train, model, clip=CLIP)
     dev_ppl, dev_loss = eval_loop(dev_loader, criterion_eval, model)
 
     print(f"[Epoch {epoch}] Train loss: {train_loss:.4f} | Dev loss: {dev_loss:.4f} | Dev ppl: {dev_ppl:.2f}")
+
+    metrics_history.append({
+        "epoch": epoch,
+        "train_loss": round(train_loss, 4),
+        "dev_loss": round(dev_loss, 4),
+        "dev_ppl": round(dev_ppl, 2)
+    })
 
     if dev_ppl < best_ppl:
         best_ppl = dev_ppl
@@ -89,7 +128,6 @@ for epoch in range(1, N_EPOCHS + 1):
         print(f"Switching to NT-ASGD at epoch {epoch}")
         optimizer = optim.ASGD(model.parameters(), lr=LR)
         triggered = True
-        avg_trigger_epoch = epoch
 
     if patience <= 0:
         print("Early stopping.")
@@ -98,6 +136,16 @@ for epoch in range(1, N_EPOCHS + 1):
 # === Test
 best_model.to(DEVICE)
 test_ppl, test_loss = eval_loop(test_loader, criterion_eval, best_model)
+
+# === Save everything
+torch.save(best_model.state_dict(), MODEL_PATH)
+with open(METRICS_JSON_PATH, 'w') as f:
+    json.dump(metrics_history, f, indent=4)
+
 print("\n===== FINAL RESULTS =====")
 print(f"Best Dev PPL: {best_ppl:.2f}")
 print(f"Test Loss: {test_loss:.4f} | Test PPL: {test_ppl:.2f}")
+print(f"Model saved to: {MODEL_PATH}")
+print(f"Metrics saved to: {METRICS_JSON_PATH}")
+print(f"HParams saved to: {HPARAMS_PATH}")
+print(f"Training time: {(time.time() - start_time) / 60:.2f} minutes")
