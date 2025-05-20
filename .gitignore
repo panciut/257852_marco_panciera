@@ -4,8 +4,10 @@
 # Ignore node_modules folder
 node_modules/
 
-# Ignore log files
-*.log
+# Ignore log process files
+*.png
+*.md
+
 
 # Ignore build outputs
 dist/
